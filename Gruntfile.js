@@ -9,8 +9,9 @@ module.exports = function (grunt) {
                 target: 'es5',
                 module: 'commonjs',
                 sourceMap: false,
+                jsx: 'react',
                 preserveConstEnums: true,
-                compiler: './node_modules/ntypescript/bin/tsc'
+                compiler: '/lib/node_modules/ntypescript/bin/tsc'
             },
             dev: {
                 src: [srcDir + '/**/*.ts'],

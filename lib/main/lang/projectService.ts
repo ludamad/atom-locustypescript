@@ -1,4 +1,3 @@
-
 import * as fsu from "../utils/fsUtil";
 import fs = require('fs');
 import path = require('path');
@@ -124,7 +123,7 @@ export function build(query: BuildQuery): Promise<BuildResponse> {
         return output;
     });
 
-    // Also optionally emit a root dts:		
+    // Also optionally emit a root dts:
     building.emitDts(proj);
 
     // If there is a post build script to run ... run it
@@ -138,7 +137,7 @@ export function build(query: BuildQuery): Promise<BuildResponse> {
             }
         });
     }
-    
+
     let tsFilesWithInvalidEmit = outputs
         .filter((o) => o.emitError)
         .map((o) => o.sourceFileName);
@@ -350,6 +349,27 @@ export function getDefinitionsAtPosition(query: GetDefinitionsAtPositionQuery): 
     });
 }
 
+export function ltsGetDefinitionAtPosition(query: GetDefinitionsAtPositionQuery): Promise<GetDefinitionsAtPositionResponse> {
+    consistentPath(query);
+    var project = getOrCreateProject(query.filePath);
+    var definitions = project.languageService.getDefinitionAtPosition(query.filePath, query.position);
+    var projectFileDirectory = project.projectFile.projectFileDirectory;
+    if (!definitions || !definitions.length) return resolve({ projectFileDirectory: projectFileDirectory, definitions: [] });
+
+    return resolve({
+        projectFileDirectory: projectFileDirectory,
+        definitions: definitions.map(d=> {
+            // If we can get the filename *we are in the same program :P*
+            var pos = project.languageServiceHost.getPositionFromIndex(d.fileName, d.textSpan.start);
+            return {
+                filePath: d.fileName,
+                position: pos
+            };
+        })
+    });
+}
+
+
 export interface UpdateTextQuery extends FilePathQuery {
     text: string;
 }
@@ -435,6 +455,24 @@ function notInContextResult(fileName: string) {
     }];
 }
 
+
+export interface GetExtractedTypeInfoQuery extends FilePathPositionQuery { }
+export interface GetExtractedTypeInfoResponse {
+    replaceText: string;
+    replaceSpan: TextSpan;
+}
+
+export function getExtractedTypeInfo(query: GetExtractedTypeInfoQuery): Promise<GetExtractedTypeInfoResponse> {
+    consistentPath(query);
+    let project = getOrCreateProject(query.filePath);
+    try {
+      var info = project.languageService.getExtractedTypeInfo(query.filePath, query.position);
+      return resolve(info);
+    } catch (err) {
+      return resolve({replaceText: 'whut', replaceSpan: {start: 0, length: 0}});
+    }
+}
+
 export interface GetRenameInfoQuery extends FilePathPositionQuery { }
 export interface GetRenameInfoResponse {
     canRename: boolean;
@@ -449,6 +487,7 @@ export interface GetRenameInfoResponse {
         [filePath: string]: TextSpan[]
     };
 }
+
 export function getRenameInfo(query: GetRenameInfoQuery): Promise<GetRenameInfoResponse> {
     consistentPath(query);
     var project = getOrCreateProject(query.filePath);

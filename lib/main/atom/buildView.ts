@@ -2,6 +2,7 @@
 
 ///ts:import=utils
 import utils = require('../lang/utils'); ///ts:import:generated
+import fsUtil = require('../utils/fsUtil'); ///ts:import:generated
 ///ts:import=project
 import project = require('../lang/core/project'); ///ts:import:generated
 

@@ -1,0 +1,16 @@
+<!-- Blocked Test Report
+-->
+<TaoTest xmlns="http://microsoft.com/schemas/VSLanguages/TAO">
+    <InitTest>
+        <StartTarget />
+    </InitTest>
+    <ScenarioList>
+    </ScenarioList>
+    <CleanupScenario>
+        <CloseAllDocuments />
+        <CleanupCreatedFiles />
+    </CleanupScenario>
+    <CleanupTest>
+        <CloseTarget />
+    </CleanupTest>
+</TaoTest>

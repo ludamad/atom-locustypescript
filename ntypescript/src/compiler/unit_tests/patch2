@@ -1,0 +1,40 @@
+diff --git a/src/compiler/checker.ts b/src/compiler/checker.ts
+index 2349a20..55efc5f 100644
+--- a/src/compiler/checker.ts
++++ b/src/compiler/checker.ts
+@@ -18064,9 +18064,6 @@ namespace ts {
+         // [ConcreteTypeScript] 
+         function getFlowDataForType(type: Type): FlowData {
+             type = unconcrete(type);
+-            if (markAsRecursiveFlowAnalysis(type)) {
+-                return undefined;
+-            }
+             if (type.flags & TypeFlags.IntermediateFlow) {
+                 return (<IntermediateFlowType> type).flowData;
+             }
+@@ -18172,8 +18169,8 @@ namespace ts {
+             }
+ 
+             forEachChildRecursive(scope, (node: Node) => {
+-                if (isReference(node)) {
+-                    Debug.assert(!!getNodeLinks(node).ctsFlowData);
++                // Don't brand for eg uncaptured 'this'
++                if (isReference(node) && getNodeLinks(node).ctsFlowData) {
+                     getNodeLinks(node).ctsFinalFlowData = finalFlowData;
+                 }
+             });
+@@ -18482,13 +18479,12 @@ namespace ts {
+             function scanFunctionLikeDeclaration(node: FunctionLikeDeclaration) {
+                 // Special case so we don't consider our declaration scope as conditionally occuring:
+                 let bodyScan = recurse(node.body, prev);
+-                    // prev = bodyScan;
+                 if (containerScope === node) {
+                     prev = bodyScan;
+                 } else {
+                     // Do nothing for now. In the future we need to treat these like become/declare function
+                     // throw new Error("embedded functions NYI");
+-    //                prev = bodyScan.merge(prev);
++//                    prev = bodyScan.merge(prev);
+                 }
+             }
+             function scanTryStatement(node: TryStatement) {

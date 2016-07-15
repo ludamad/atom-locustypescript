@@ -55,6 +55,7 @@ exports.editText = catchCommonErrors(parent.sendToIpc(projectService.editText));
 exports.errorsForFile = catchCommonErrors(parent.sendToIpc(projectService.errorsForFile));
 exports.getSignatureHelps = catchCommonErrors(parent.sendToIpc(projectService.getSignatureHelps));
 exports.getRenameInfo = catchCommonErrors(parent.sendToIpc(projectService.getRenameInfo));
+exports.getExtractedTypeInfo = catchCommonErrors(parent.sendToIpc(projectService.getExtractedTypeInfo));
 exports.getRelativePathsInProject = catchCommonErrors(parent.sendToIpc(projectService.getRelativePathsInProject));
 exports.debugLanguageServiceHostVersion = parent.sendToIpc(projectService.debugLanguageServiceHostVersion);
 exports.getProjectFileDetails = parent.sendToIpc(projectService.getProjectFileDetails);

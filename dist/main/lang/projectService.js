@@ -216,6 +216,25 @@ function getDefinitionsAtPosition(query) {
     });
 }
 exports.getDefinitionsAtPosition = getDefinitionsAtPosition;
+function ltsGetDefinitionAtPosition(query) {
+    projectCache_1.consistentPath(query);
+    var project = projectCache_1.getOrCreateProject(query.filePath);
+    var definitions = project.languageService.getDefinitionAtPosition(query.filePath, query.position);
+    var projectFileDirectory = project.projectFile.projectFileDirectory;
+    if (!definitions || !definitions.length)
+        return resolve({ projectFileDirectory: projectFileDirectory, definitions: [] });
+    return resolve({
+        projectFileDirectory: projectFileDirectory,
+        definitions: definitions.map(function (d) {
+            var pos = project.languageServiceHost.getPositionFromIndex(d.fileName, d.textSpan.start);
+            return {
+                filePath: d.fileName,
+                position: pos
+            };
+        })
+    });
+}
+exports.ltsGetDefinitionAtPosition = ltsGetDefinitionAtPosition;
 function updateText(query) {
     projectCache_1.consistentPath(query);
     var lsh = projectCache_1.getOrCreateProject(query.filePath).languageServiceHost;
@@ -282,6 +301,18 @@ function notInContextResult(fileName) {
             preview: ""
         }];
 }
+function getExtractedTypeInfo(query) {
+    projectCache_1.consistentPath(query);
+    var project = projectCache_1.getOrCreateProject(query.filePath);
+    try {
+        var info = project.languageService.getExtractedTypeInfo(query.filePath, query.position);
+        return resolve(info);
+    }
+    catch (err) {
+        return resolve({ replaceText: 'whut', replaceSpan: { start: 0, length: 0 } });
+    }
+}
+exports.getExtractedTypeInfo = getExtractedTypeInfo;
 function getRenameInfo(query) {
     projectCache_1.consistentPath(query);
     var project = projectCache_1.getOrCreateProject(query.filePath);
@@ -334,8 +365,8 @@ function getProjectFileDetails(query) {
 exports.getProjectFileDetails = getProjectFileDetails;
 function sortNavbarItemsBySpan(items) {
     items.sort(function (a, b) { return a.spans[0].start - b.spans[0].start; });
-    for (var _i = 0; _i < items.length; _i++) {
-        var item = items[_i];
+    for (var _i = 0, items_1 = items; _i < items_1.length; _i++) {
+        var item = items_1[_i];
         if (item.childItems) {
             sortNavbarItemsBySpan(item.childItems);
         }

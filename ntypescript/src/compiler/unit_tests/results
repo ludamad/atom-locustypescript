@@ -1,0 +1,579 @@
+
+
+  getPropertyOfType
+    ✓ testFooPropertiesAreXAndY
+
+  Nominal this
+    1) "/* first */ /*x*/ (this.x)" @simulated_file1.ts(1,34) should be a !number
+    ✓ "/*x*/ (this.x)" @simulated_file1.ts(4,24) should be a !number
+    ✓ "/*x*/ (foo.x)" @simulated_file1.ts(9,29) should be a !number
+    ✓ "/*x*/ (Foo.prototype.x)" @simulated_file1.ts(10,23) should be a !number
+    ✓ "/*y*/ (this.y)" @simulated_file1.ts(3,20) should be a !number
+    ✓ "/*y*/ (foo.y)" @simulated_file1.ts(11,33) should be a !number
+
+  Compilation tests
+    ✓ simple becomes
+    2) brand interface
+
+  Calling functions mutually recursive
+    3) should test mutually recursive functions
+
+  Calling functions with a declare parameter
+    4) should bind through function call for a 'this' parameter
+    5) should bind through function call for a normal parameter
+    6) should bind x and y to a 'var'-declared variable
+    7) should bind x and y to a 'let'-declared variable
+
+  Type relations of ConcreteTypeScript
+WHAT
+ParenthesizedExpression (pos: 217, end: 268)
+  PropertyAccessExpression (pos: 250, end: 267)
+    Identifier (pos: 250, end: 259, text: variable2)
+    DotToken (pos: 259, end: 260)
+    Identifier (pos: 260, end: 267, text: member1)
+WHAT
+ParenthesizedExpression (pos: 308, end: 359)
+  PropertyAccessExpression (pos: 341, end: 358)
+    Identifier (pos: 341, end: 350, text: variable2)
+    DotToken (pos: 350, end: 351)
+    Identifier (pos: 351, end: 358, text: member1)
+    8) DTRTB: test relationships for Declare types related through 'becomes'
+    9) test relationships for IntermediateFlowType's and their parts
+    ✓ test relationships for disjoint Declare-types
+TRIGGERED
+    10) test relationships for 'Decl1 declare Decl2' Declare-types
+
+  The stages of binding
+{} becomes !DeclareType
+{ flowTypes: [ { type: [Object], firstBindingSite: [Object] } ],
+  memberSet: 
+   { y: 
+      { key: 'y',
+        definitelyAssigned: true,
+        conditionalBarrierPassed: false,
+        flowTypes: [Object] },
+     x: 
+      { key: 'x',
+        definitelyAssigned: true,
+        conditionalBarrierPassed: false,
+        flowTypes: [Object] },
+     objProp2: 
+      { key: 'objProp2',
+        definitelyAssigned: true,
+        conditionalBarrierPassed: false,
+        flowTypes: [Object] },
+     objProp1: 
+      { key: 'objProp1',
+        definitelyAssigned: true,
+        conditionalBarrierPassed: false,
+        flowTypes: [Object] } } }
+WHATasda!DeclareType
+//WHATasda!DeclareType
+{} becomes !DeclareType
+{objProp2: !string, objProp1: !number} becomes !DeclareType
+    ✓ Should test the stages of declare-type binding
+{} becomes BecomesType
+{ flowTypes: [ { type: [Object], firstBindingSite: [Object] } ],
+  memberSet: 
+   { y: 
+      { key: 'y',
+        definitelyAssigned: true,
+        conditionalBarrierPassed: false,
+        flowTypes: [Object] },
+     x: 
+      { key: 'x',
+        definitelyAssigned: true,
+        conditionalBarrierPassed: false,
+        flowTypes: [Object] },
+     objProp2: 
+      { key: 'objProp2',
+        definitelyAssigned: true,
+        conditionalBarrierPassed: false,
+        flowTypes: [Object] },
+     objProp1: 
+      { key: 'objProp1',
+        definitelyAssigned: true,
+        conditionalBarrierPassed: false,
+        flowTypes: [Object] } } }
+WHATasdaBecomesType
+//WHATasdaBecomesType
+{} becomes BecomesType
+{objProp2: string, objProp1: number} becomes BecomesType
+    ✓ Should test the stages of becomes-type binding
+
+  Simple sequential assignments
+    11) should bind x and y to a 'this' parameter
+    12) should bind x and y to a normal parameter
+    13) should bind x and y to a 'var'-declared variable
+    14) should bind x and y to a 'let'-declared variable
+
+
+  10 passing (2s)
+  14 failing
+
+  1) Nominal this "/* first */ /*x*/ (this.x)" @simulated_file1.ts(1,34) should be a !number:
+     Error: Debug Failure. False expression: 
+      at Object.assert (/home/adomurad/sources/ConcreteTypeScript/src/compiler/core.ts:812:23)
+      at /home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18176:27
+      at callbackPrime (/home/adomurad/sources/ConcreteTypeScript/src/compiler/ctsUtilities.ts:19:13)
+      at visitNode (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:18:20)
+      at Object.forEachChild (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:72:21)
+      at callbackPrime (/home/adomurad/sources/ConcreteTypeScript/src/compiler/ctsUtilities.ts:20:13)
+      at visitNode (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:18:20)
+      at Object.forEachChild (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:101:21)
+      at callbackPrime (/home/adomurad/sources/ConcreteTypeScript/src/compiler/ctsUtilities.ts:20:13)
+      at Object.forEachChildRecursive (/home/adomurad/sources/ConcreteTypeScript/src/compiler/ctsUtilities.ts:22:9)
+      at computeFlowData (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18174:13)
+      at getFlowDataAtLocation (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18054:17)
+      at getFlowTypeAtLocation (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:15963:48)
+      at checkThisExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:7528:28)
+      at checkExpressionWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:11753:28)
+      at checkExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:11720:42)
+      at checkPropertyAccessExpressionOrQualifiedName (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:9094:29)
+      at checkPropertyAccessExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:8926:20)
+      at checkExpressionWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:11777:28)
+      at checkExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:11720:42)
+      at checkExpressionWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:11786:28)
+      at checkExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:11720:42)
+      at getTypeOfExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:16053:20)
+      at getTypeOfNodeWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:16003:24)
+      at Object.getTypeOfNode [as getTypeAtLocation] (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:15982:24)
+      at Context.<anonymous> (test.ts:49:32)
+
+  2) Compilation tests brand interface:
+     Error: Debug Failure. False expression: 
+      at Object.assert (/home/adomurad/sources/ConcreteTypeScript/src/compiler/core.ts:812:23)
+      at resolveClassOrInterfaceMembers (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:3539:23)
+      at resolveStructuredTypeMembers (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:3829:21)
+      at getPropertyOfType (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:4086:32)
+      at checkPropertyAccessExpressionOrQualifiedName (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:9103:24)
+      at checkPropertyAccessExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:8926:20)
+      at checkExpressionWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:11777:28)
+      at checkExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:11720:42)
+      at checkExpressionWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:11786:28)
+      at checkExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:11720:42)
+      at getTypeOfExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:16053:20)
+      at getTypeOfNodeWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:16003:24)
+      at getTypeOfNode (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:15982:24)
+      at Array.map (native)
+      at Context.<anonymous> (test.ts:81:14)
+
+  3) Calling functions mutually recursive should test mutually recursive functions:
+     Error: Debug Failure. False expression: 
+      at Object.assert (/home/adomurad/sources/ConcreteTypeScript/src/compiler/core.ts:812:23)
+      at /home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18176:27
+      at callbackPrime (/home/adomurad/sources/ConcreteTypeScript/src/compiler/ctsUtilities.ts:19:13)
+      at visitNode (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:18:20)
+      at Object.forEachChild (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:72:21)
+      at callbackPrime (/home/adomurad/sources/ConcreteTypeScript/src/compiler/ctsUtilities.ts:20:13)
+      at visitEachNode (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:31:30)
+      at Object.forEachChild (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:100:21)
+      at callbackPrime (/home/adomurad/sources/ConcreteTypeScript/src/compiler/ctsUtilities.ts:20:13)
+      at Object.forEachChildRecursive (/home/adomurad/sources/ConcreteTypeScript/src/compiler/ctsUtilities.ts:22:9)
+      at computeFlowData (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18174:13)
+      at getFlowDataAtLocation (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18054:17)
+      at getFlowTypeAtLocation (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:15963:48)
+      at getNarrowedTypeOfSymbol (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:7113:20)
+      at checkIdentifier (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:7413:20)
+      at checkExpressionWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:11751:28)
+      at checkExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:11720:42)
+      at checkPropertyAccessExpressionOrQualifiedName (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:9094:29)
+      at checkPropertyAccessExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:8926:20)
+      at checkExpressionWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:11777:28)
+      at checkExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:11720:42)
+      at checkPropertyAccessExpressionOrQualifiedName (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:9094:29)
+      at checkPropertyAccessExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:8926:20)
+      at checkExpressionWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:11777:28)
+      at checkExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:11720:42)
+      at checkExpressionWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:11786:28)
+      at checkExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:11720:42)
+      at getTypeOfExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:16053:20)
+      at getTypeOfNodeWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:16003:24)
+      at getTypeOfNode (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:15982:24)
+      at Array.map (native)
+      at Context.<anonymous> (test.ts:123:14)
+
+  4) Calling functions with a declare parameter should bind through function call for a 'this' parameter:
+     Error: Debug Failure. False expression: 
+      at Object.assert (/home/adomurad/sources/ConcreteTypeScript/src/compiler/core.ts:812:23)
+      at /home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18176:27
+      at callbackPrime (/home/adomurad/sources/ConcreteTypeScript/src/compiler/ctsUtilities.ts:19:13)
+      at visitNode (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:18:20)
+      at Object.forEachChild (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:72:21)
+      at callbackPrime (/home/adomurad/sources/ConcreteTypeScript/src/compiler/ctsUtilities.ts:20:13)
+      at visitEachNode (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:31:30)
+      at Object.forEachChild (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:100:21)
+      at callbackPrime (/home/adomurad/sources/ConcreteTypeScript/src/compiler/ctsUtilities.ts:20:13)
+      at Object.forEachChildRecursive (/home/adomurad/sources/ConcreteTypeScript/src/compiler/ctsUtilities.ts:22:9)
+      at computeFlowData (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18174:13)
+      at getFlowDataForDeclareType (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18030:21)
+      at getFlowDataForType (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18080:24)
+      at resolveBaseTypesOfDeclare (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:3214:28)
+      at getBaseTypes (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:3166:21)
+      at resolveClassOrInterfaceMembers (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:3510:29)
+      at resolveStructuredTypeMembers (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:3829:21)
+      at getPropertiesOfObjectType (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:3866:24)
+      at propertiesRelatedTo (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:5991:34)
+      at objectTypeRelatedTo (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:5943:30)
+      at isRelatedTo (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:5702:38)
+      at checkTypeRelatedTo (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:5535:26)
+      at checkTypeSubtypeOf (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:5494:20)
+      at isTypeSubtypeOf (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:5486:20)
+      at flowDataBecomesType (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:17694:21)
+      at scanCallExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18350:36)
+      at scanWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18529:32)
+      at computeFlowDataWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18296:17)
+      at recurse (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18571:24)
+      at /home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18575:28
+      at visitNode (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:18:20)
+      at Object.forEachChild (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:209:24)
+      at descend (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18574:17)
+      at scanWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18561:25)
+      at computeFlowDataWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18296:17)
+      at recurse (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18571:24)
+      at /home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18575:28
+      at visitEachNode (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:31:30)
+      at Object.forEachChild (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:198:24)
+      at descend (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18574:17)
+      at scanWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18561:25)
+      at computeFlowDataWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18296:17)
+      at recurse (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18571:24)
+      at scanFunctionLikeDeclaration (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18484:32)
+      at scanWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18558:32)
+      at computeFlowDataWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18296:17)
+      at computeFlowDataForLocusTypeWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18188:33)
+      at computeFlowData (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18169:37)
+      at getFlowDataAtLocation (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18054:17)
+      at getFlowTypeAtLocation (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:15963:48)
+      at checkThisExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:7528:28)
+      at checkExpressionWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:11753:28)
+      at checkExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:11720:42)
+      at getTypeOfExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:16053:20)
+      at getTypeOfNodeWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:16003:24)
+      at Object.getTypeOfNode [as getTypeAtLocation] (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:15982:24)
+      at callFunctionWithDeclareParameter (test.ts:161:33)
+      at Context.<anonymous> (test.ts:170:9)
+
+  5) Calling functions with a declare parameter should bind through function call for a normal parameter:
+     Error: Debug Failure. False expression: 
+      at Object.assert (/home/adomurad/sources/ConcreteTypeScript/src/compiler/core.ts:812:23)
+      at /home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18176:27
+      at callbackPrime (/home/adomurad/sources/ConcreteTypeScript/src/compiler/ctsUtilities.ts:19:13)
+      at visitNode (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:18:20)
+      at Object.forEachChild (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:72:21)
+      at callbackPrime (/home/adomurad/sources/ConcreteTypeScript/src/compiler/ctsUtilities.ts:20:13)
+      at visitEachNode (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:31:30)
+      at Object.forEachChild (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:100:21)
+      at callbackPrime (/home/adomurad/sources/ConcreteTypeScript/src/compiler/ctsUtilities.ts:20:13)
+      at Object.forEachChildRecursive (/home/adomurad/sources/ConcreteTypeScript/src/compiler/ctsUtilities.ts:22:9)
+      at computeFlowData (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18174:13)
+      at getFlowDataForDeclareType (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18030:21)
+      at getFlowDataForType (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18080:24)
+      at resolveBaseTypesOfDeclare (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:3214:28)
+      at getBaseTypes (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:3166:21)
+      at resolveClassOrInterfaceMembers (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:3510:29)
+      at resolveStructuredTypeMembers (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:3829:21)
+      at getPropertiesOfObjectType (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:3866:24)
+      at propertiesRelatedTo (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:5991:34)
+      at objectTypeRelatedTo (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:5943:30)
+      at isRelatedTo (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:5702:38)
+      at checkTypeRelatedTo (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:5535:26)
+      at checkTypeSubtypeOf (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:5494:20)
+      at isTypeSubtypeOf (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:5486:20)
+      at flowDataBecomesType (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:17694:21)
+      at scanCallExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18350:36)
+      at scanWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18529:32)
+      at computeFlowDataWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18296:17)
+      at recurse (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18571:24)
+      at /home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18575:28
+      at visitNode (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:18:20)
+      at Object.forEachChild (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:209:24)
+      at descend (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18574:17)
+      at scanWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18561:25)
+      at computeFlowDataWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18296:17)
+      at recurse (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18571:24)
+      at /home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18575:28
+      at visitEachNode (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:31:30)
+      at Object.forEachChild (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:198:24)
+      at descend (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18574:17)
+      at scanWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18561:25)
+      at computeFlowDataWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18296:17)
+      at recurse (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18571:24)
+      at scanFunctionLikeDeclaration (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18484:32)
+      at scanWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18558:32)
+      at computeFlowDataWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18296:17)
+      at computeFlowDataForLocusTypeWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18188:33)
+      at computeFlowData (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18169:37)
+      at getFlowDataAtLocation (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18054:17)
+      at getFlowTypeAtLocation (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:15963:48)
+      at getNarrowedTypeOfSymbol (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:7113:20)
+      at checkIdentifier (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:7413:20)
+      at checkExpressionWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:11751:28)
+      at checkExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:11720:42)
+      at getTypeOfExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:16053:20)
+      at getTypeOfNodeWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:16003:24)
+      at Object.getTypeOfNode [as getTypeAtLocation] (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:15982:24)
+      at callFunctionWithDeclareParameter (test.ts:161:33)
+      at Context.<anonymous> (test.ts:173:9)
+
+  6) Calling functions with a declare parameter should bind x and y to a 'var'-declared variable:
+     Error: Debug Failure. False expression: 
+      at Object.assert (/home/adomurad/sources/ConcreteTypeScript/src/compiler/core.ts:812:23)
+      at /home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18176:27
+      at callbackPrime (/home/adomurad/sources/ConcreteTypeScript/src/compiler/ctsUtilities.ts:19:13)
+      at visitNode (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:18:20)
+      at Object.forEachChild (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:72:21)
+      at callbackPrime (/home/adomurad/sources/ConcreteTypeScript/src/compiler/ctsUtilities.ts:20:13)
+      at visitEachNode (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:31:30)
+      at Object.forEachChild (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:100:21)
+      at callbackPrime (/home/adomurad/sources/ConcreteTypeScript/src/compiler/ctsUtilities.ts:20:13)
+      at Object.forEachChildRecursive (/home/adomurad/sources/ConcreteTypeScript/src/compiler/ctsUtilities.ts:22:9)
+      at computeFlowData (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18174:13)
+      at getFlowDataForDeclareType (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18030:21)
+      at getFlowDataForType (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18080:24)
+      at resolveBaseTypesOfDeclare (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:3214:28)
+      at getBaseTypes (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:3166:21)
+      at resolveClassOrInterfaceMembers (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:3510:29)
+      at resolveStructuredTypeMembers (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:3829:21)
+      at getPropertiesOfObjectType (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:3866:24)
+      at propertiesRelatedTo (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:5991:34)
+      at objectTypeRelatedTo (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:5943:30)
+      at isRelatedTo (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:5702:38)
+      at checkTypeRelatedTo (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:5535:26)
+      at checkTypeSubtypeOf (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:5494:20)
+      at isTypeSubtypeOf (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:5486:20)
+      at flowDataBecomesType (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:17694:21)
+      at scanCallExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18350:36)
+      at scanWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18529:32)
+      at computeFlowDataWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18296:17)
+      at recurse (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18571:24)
+      at /home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18575:28
+      at visitNode (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:18:20)
+      at Object.forEachChild (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:209:24)
+      at descend (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18574:17)
+      at scanWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18561:25)
+      at computeFlowDataWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18296:17)
+      at recurse (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18571:24)
+      at /home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18575:28
+      at visitEachNode (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:31:30)
+      at Object.forEachChild (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:198:24)
+      at descend (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18574:17)
+      at scanWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18561:25)
+      at computeFlowDataWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18296:17)
+      at recurse (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18571:24)
+      at scanFunctionLikeDeclaration (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18484:32)
+      at scanWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18558:32)
+      at computeFlowDataWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18296:17)
+      at computeFlowDataForLocusTypeWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18188:33)
+      at computeFlowData (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18169:37)
+      at getFlowDataAtLocation (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18054:17)
+      at getFlowTypeAtLocation (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:15963:48)
+      at getNarrowedTypeOfSymbol (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:7113:20)
+      at checkIdentifier (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:7413:20)
+      at checkExpressionWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:11751:28)
+      at checkExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:11720:42)
+      at getTypeOfExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:16053:20)
+      at getTypeOfNodeWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:16003:24)
+      at Object.getTypeOfNode [as getTypeAtLocation] (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:15982:24)
+      at callFunctionWithDeclareParameter (test.ts:161:33)
+      at Context.<anonymous> (test.ts:176:9)
+
+  7) Calling functions with a declare parameter should bind x and y to a 'let'-declared variable:
+     Error: Debug Failure. False expression: 
+      at Object.assert (/home/adomurad/sources/ConcreteTypeScript/src/compiler/core.ts:812:23)
+      at /home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18176:27
+      at callbackPrime (/home/adomurad/sources/ConcreteTypeScript/src/compiler/ctsUtilities.ts:19:13)
+      at visitNode (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:18:20)
+      at Object.forEachChild (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:72:21)
+      at callbackPrime (/home/adomurad/sources/ConcreteTypeScript/src/compiler/ctsUtilities.ts:20:13)
+      at visitEachNode (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:31:30)
+      at Object.forEachChild (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:100:21)
+      at callbackPrime (/home/adomurad/sources/ConcreteTypeScript/src/compiler/ctsUtilities.ts:20:13)
+      at Object.forEachChildRecursive (/home/adomurad/sources/ConcreteTypeScript/src/compiler/ctsUtilities.ts:22:9)
+      at computeFlowData (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18174:13)
+      at getFlowDataForDeclareType (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18030:21)
+      at getFlowDataForType (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18080:24)
+      at resolveBaseTypesOfDeclare (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:3214:28)
+      at getBaseTypes (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:3166:21)
+      at resolveClassOrInterfaceMembers (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:3510:29)
+      at resolveStructuredTypeMembers (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:3829:21)
+      at getPropertiesOfObjectType (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:3866:24)
+      at propertiesRelatedTo (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:5991:34)
+      at objectTypeRelatedTo (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:5943:30)
+      at isRelatedTo (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:5702:38)
+      at checkTypeRelatedTo (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:5535:26)
+      at checkTypeSubtypeOf (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:5494:20)
+      at isTypeSubtypeOf (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:5486:20)
+      at flowDataBecomesType (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:17694:21)
+      at scanCallExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18350:36)
+      at scanWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18529:32)
+      at computeFlowDataWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18296:17)
+      at recurse (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18571:24)
+      at /home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18575:28
+      at visitNode (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:18:20)
+      at Object.forEachChild (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:209:24)
+      at descend (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18574:17)
+      at scanWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18561:25)
+      at computeFlowDataWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18296:17)
+      at recurse (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18571:24)
+      at /home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18575:28
+      at visitEachNode (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:31:30)
+      at Object.forEachChild (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:198:24)
+      at descend (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18574:17)
+      at scanWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18561:25)
+      at computeFlowDataWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18296:17)
+      at recurse (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18571:24)
+      at scanFunctionLikeDeclaration (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18484:32)
+      at scanWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18558:32)
+      at computeFlowDataWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18296:17)
+      at computeFlowDataForLocusTypeWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18188:33)
+      at computeFlowData (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18169:37)
+      at getFlowDataAtLocation (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18054:17)
+      at getFlowTypeAtLocation (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:15963:48)
+      at getNarrowedTypeOfSymbol (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:7113:20)
+      at checkIdentifier (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:7413:20)
+      at checkExpressionWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:11751:28)
+      at checkExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:11720:42)
+      at getTypeOfExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:16053:20)
+      at getTypeOfNodeWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:16003:24)
+      at Object.getTypeOfNode [as getTypeAtLocation] (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:15982:24)
+      at callFunctionWithDeclareParameter (test.ts:161:33)
+      at Context.<anonymous> (test.ts:179:9)
+
+  8) Type relations of ConcreteTypeScript DTRTB: test relationships for Declare types related through 'becomes':
+     Error: Debug Failure. False expression: 
+      at Object.assert (/home/adomurad/sources/ConcreteTypeScript/src/compiler/core.ts:812:23)
+      at /home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18176:27
+      at callbackPrime (/home/adomurad/sources/ConcreteTypeScript/src/compiler/ctsUtilities.ts:19:13)
+      at visitNode (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:18:20)
+      at Object.forEachChild (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:72:21)
+      at callbackPrime (/home/adomurad/sources/ConcreteTypeScript/src/compiler/ctsUtilities.ts:20:13)
+      at visitEachNode (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:31:30)
+      at Object.forEachChild (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:100:21)
+      at callbackPrime (/home/adomurad/sources/ConcreteTypeScript/src/compiler/ctsUtilities.ts:20:13)
+      at Object.forEachChildRecursive (/home/adomurad/sources/ConcreteTypeScript/src/compiler/ctsUtilities.ts:22:9)
+      at computeFlowData (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18174:13)
+      at getFlowDataForDeclareType (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18030:21)
+      at getFlowDataForType (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18080:24)
+      at resolveBaseTypesOfDeclare (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:3214:28)
+      at getBaseTypes (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:3166:21)
+      at resolveClassOrInterfaceMembers (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:3510:29)
+      at resolveStructuredTypeMembers (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:3829:21)
+      at getPropertiesOfObjectType (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:3866:24)
+      at propertiesRelatedTo (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:5991:34)
+      at objectTypeRelatedTo (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:5943:30)
+      at isRelatedTo (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:5702:38)
+      at checkTypeRelatedTo (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:5535:26)
+      at checkTypeSubtypeOf (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:5494:20)
+      at isTypeSubtypeOf (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:5486:20)
+      at flowDataBecomesType (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:17694:21)
+      at scanCallExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18350:36)
+      at scanWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18529:32)
+      at computeFlowDataWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18296:17)
+      at recurse (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18571:24)
+      at /home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18575:28
+      at visitNode (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:18:20)
+      at Object.forEachChild (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:209:24)
+      at descend (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18574:17)
+      at scanWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18561:25)
+      at computeFlowDataWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18296:17)
+      at recurse (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18571:24)
+      at /home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18575:28
+      at visitEachNode (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:31:30)
+      at Object.forEachChild (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:198:24)
+      at descend (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18574:17)
+      at scanWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18561:25)
+      at computeFlowDataWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18296:17)
+      at recurse (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18571:24)
+      at scanFunctionLikeDeclaration (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18484:32)
+      at scanWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18558:32)
+      at computeFlowDataWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18296:17)
+      at computeFlowDataForLocusTypeWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18188:33)
+      at computeFlowData (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18169:37)
+      at getFlowDataAtLocation (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18054:17)
+      at getFlowTypeAtLocation (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:15963:48)
+      at getNarrowedTypeOfSymbol (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:7113:20)
+      at checkIdentifier (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:7413:20)
+      at checkExpressionWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:11751:28)
+      at checkExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:11720:42)
+      at checkPropertyAccessExpressionOrQualifiedName (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:9094:29)
+      at checkPropertyAccessExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:8926:20)
+      at checkExpressionWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:11777:28)
+      at checkExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:11720:42)
+      at checkExpressionWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:11786:28)
+      at checkExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:11720:42)
+      at getTypeOfExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:16053:20)
+      at getTypeOfNodeWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:16003:24)
+      at getTypeOfNode (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:15982:24)
+      at Array.map (native)
+      at Context.<anonymous> (test.ts:200:14)
+
+  9) Type relations of ConcreteTypeScript test relationships for IntermediateFlowType's and their parts:
+     AssertionError: Should not be assignable from starting type!
+      at Context.<anonymous> (test.ts:218:17)
+
+  10) Type relations of ConcreteTypeScript test relationships for 'Decl1 declare Decl2' Declare-types:
+     AssertionError: Base type should be declType1
+      at Context.<anonymous> (test.ts:238:24)
+
+  11) Simple sequential assignments should bind x and y to a 'this' parameter:
+     Error: Debug Failure. False expression: 
+      at Object.assert (/home/adomurad/sources/ConcreteTypeScript/src/compiler/core.ts:812:23)
+      at /home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18176:27
+      at callbackPrime (/home/adomurad/sources/ConcreteTypeScript/src/compiler/ctsUtilities.ts:19:13)
+      at visitNode (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:18:20)
+      at Object.forEachChild (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:72:21)
+      at callbackPrime (/home/adomurad/sources/ConcreteTypeScript/src/compiler/ctsUtilities.ts:20:13)
+      at visitNode (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:18:20)
+      at Object.forEachChild (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:101:21)
+      at callbackPrime (/home/adomurad/sources/ConcreteTypeScript/src/compiler/ctsUtilities.ts:20:13)
+      at Object.forEachChildRecursive (/home/adomurad/sources/ConcreteTypeScript/src/compiler/ctsUtilities.ts:22:9)
+      at computeFlowData (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18174:13)
+      at getFlowDataAtLocation (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18054:17)
+      at getFlowTypeAtLocation (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:15963:48)
+      at checkThisExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:7528:28)
+      at checkExpressionWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:11753:28)
+      at checkExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:11720:42)
+      at getTypeOfExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:16053:20)
+      at getTypeOfNodeWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:16003:24)
+      at Object.getTypeOfNode [as getTypeAtLocation] (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:15982:24)
+      at basicAssignmentTest (test.ts:416:31)
+      at Context.<anonymous> (test.ts:429:9)
+
+  12) Simple sequential assignments should bind x and y to a normal parameter:
+     Error: Debug Failure. False expression: 
+      at Object.assert (/home/adomurad/sources/ConcreteTypeScript/src/compiler/core.ts:812:23)
+      at /home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18176:27
+      at callbackPrime (/home/adomurad/sources/ConcreteTypeScript/src/compiler/ctsUtilities.ts:19:13)
+      at visitNode (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:18:20)
+      at Object.forEachChild (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:72:21)
+      at callbackPrime (/home/adomurad/sources/ConcreteTypeScript/src/compiler/ctsUtilities.ts:20:13)
+      at visitEachNode (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:31:30)
+      at Object.forEachChild (/home/adomurad/sources/ConcreteTypeScript/src/compiler/parser.ts:100:21)
+      at callbackPrime (/home/adomurad/sources/ConcreteTypeScript/src/compiler/ctsUtilities.ts:20:13)
+      at Object.forEachChildRecursive (/home/adomurad/sources/ConcreteTypeScript/src/compiler/ctsUtilities.ts:22:9)
+      at computeFlowData (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18174:13)
+      at getFlowDataAtLocation (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:18054:17)
+      at getFlowTypeAtLocation (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:15963:48)
+      at getNarrowedTypeOfSymbol (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:7113:20)
+      at checkIdentifier (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:7413:20)
+      at checkExpressionWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:11751:28)
+      at checkExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:11720:42)
+      at getTypeOfExpression (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:16053:20)
+      at getTypeOfNodeWorker (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:16003:24)
+      at Object.getTypeOfNode [as getTypeAtLocation] (/home/adomurad/sources/ConcreteTypeScript/src/compiler/checker.ts:15982:24)
+      at basicAssignmentTest (test.ts:416:31)
+      at Context.<anonymous> (test.ts:432:9)
+
+  13) Simple sequential assignments should bind x and y to a 'var'-declared variable:
+     AssertionError: Incorrect members after second assignment.
+      at basicAssignmentTest (test.ts:425:17)
+      at Context.<anonymous> (test.ts:435:9)
+
+  14) Simple sequential assignments should bind x and y to a 'let'-declared variable:
+     AssertionError: Incorrect members after second assignment.
+      at basicAssignmentTest (test.ts:425:17)
+      at Context.<anonymous> (test.ts:438:9)
+
+
+

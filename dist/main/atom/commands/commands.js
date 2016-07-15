@@ -164,6 +164,28 @@ function registerCommands() {
             return;
         semanticView.toggle();
     });
+    atom.commands.add('atom-text-editor', 'typescript:extract-type', function (e) {
+        var editor = atom.workspace.getActiveTextEditor();
+        if (!atomUtils.commandForTypeScript(e))
+            return;
+        parent.getExtractedTypeInfo(atomUtils.getFilePathPosition()).then(function (res) {
+            if (res.replaceText) {
+                var range = atomUtils.getRangeForTextSpan(editor, res.replaceSpan);
+                editor.setTextInBufferRange(range, res.replaceText);
+            }
+        });
+    });
+    atom.commands.add('atom-text-editor', 'typescript:', function (e) {
+        var editor = atom.workspace.getActiveTextEditor();
+        if (!atomUtils.commandForTypeScript(e))
+            return;
+        parent.getExtractedTypeInfo(atomUtils.getFilePathPosition()).then(function (res) {
+            if (res.replaceText) {
+                var range = atomUtils.getRangeForTextSpan(editor, res.replaceSpan);
+                editor.setTextInBufferRange(range, res.replaceText);
+            }
+        });
+    });
     atom.commands.add('atom-text-editor', 'typescript:rename-refactor', function (e) {
         var editor = atom.workspace.getActiveTextEditor();
         var matched = atomUtils.editorInTheseScopes([atomUtils.knownScopes.es6import, atomUtils.knownScopes.require]);

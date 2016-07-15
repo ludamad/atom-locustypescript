@@ -207,11 +207,11 @@ export function registerCommands() {
         /*atom.commands.dispatch(
             atom.views.getView(atom.workspace.getActiveTextEditor()),
             'typescript:testing-r-view');*/
-        
+
         // atom.commands.dispatch(
         //     atom.views.getView(atom.workspace.getActiveTextEditor()),
         //     'typescript:toggle-semantic-view');
-             
+
         atom.commands.dispatch(
             atom.views.getView(atom.workspace.getActiveTextEditor()),
             'typescript:dependency-view');
@@ -223,8 +223,29 @@ export function registerCommands() {
 
     atom.commands.add('atom-workspace', 'typescript:toggle-semantic-view', (e) => {
         if (!atomUtils.commandForTypeScript(e)) return;
-
         semanticView.toggle();
+    });
+
+    atom.commands.add('atom-text-editor', 'typescript:extract-type', (e) => {
+        var editor = atom.workspace.getActiveTextEditor();
+        if (!atomUtils.commandForTypeScript(e)) return;
+        parent.getExtractedTypeInfo(atomUtils.getFilePathPosition()).then((res) => {
+            if (res.replaceText) {
+                var range = atomUtils.getRangeForTextSpan(editor, res.replaceSpan);
+                editor.setTextInBufferRange(range, res.replaceText);
+            }
+        });
+    });
+
+    atom.commands.add('atom-text-editor', 'typescript:', (e) => {
+        var editor = atom.workspace.getActiveTextEditor();
+        if (!atomUtils.commandForTypeScript(e)) return;
+        parent.getExtractedTypeInfo(atomUtils.getFilePathPosition()).then((res) => {
+            if (res.replaceText) {
+                var range = atomUtils.getRangeForTextSpan(editor, res.replaceSpan);
+                editor.setTextInBufferRange(range, res.replaceText);
+            }
+        });
     });
 
     atom.commands.add('atom-text-editor', 'typescript:rename-refactor', (e) => {

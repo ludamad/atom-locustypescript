@@ -77,6 +77,7 @@ export var editText = catchCommonErrors(parent.sendToIpc(projectService.editText
 export var errorsForFile = catchCommonErrors(parent.sendToIpc(projectService.errorsForFile));
 export var getSignatureHelps = catchCommonErrors(parent.sendToIpc(projectService.getSignatureHelps));
 export var getRenameInfo = catchCommonErrors(parent.sendToIpc(projectService.getRenameInfo));
+export var getExtractedTypeInfo = catchCommonErrors(parent.sendToIpc(projectService.getExtractedTypeInfo));
 export var getRelativePathsInProject = catchCommonErrors(parent.sendToIpc(projectService.getRelativePathsInProject));
 export var debugLanguageServiceHostVersion = parent.sendToIpc(projectService.debugLanguageServiceHostVersion);
 export var getProjectFileDetails = parent.sendToIpc(projectService.getProjectFileDetails);

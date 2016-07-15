@@ -3,6 +3,7 @@
 
 ///ts:import=utils
 import utils = require('./main/lang/utils'); ///ts:import:generated
+import fsUtil = require('./main/utils/fsUtil'); ///ts:import:generated
 ///ts:import=parent
 import parent = require('./worker/parent'); ///ts:import:generated
 
